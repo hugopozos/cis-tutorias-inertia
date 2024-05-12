@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique()->comment('NOMBRE DE LA MATERIA');
+            $table->string('name')->comment('NOMBRE DE LA MATERIA');
             $table->text('description')->nullable()->comment('DESCRIPCIÓN DE LA MATERIA');
             $table->boolean('active')->default(true)->comment('ESTADO DE LA MATERIA');
             $table->foreignId('university_career_id')->references('id')->on('university_careers');
