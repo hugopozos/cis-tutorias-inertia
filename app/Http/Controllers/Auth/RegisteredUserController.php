@@ -41,11 +41,19 @@ class RegisteredUserController extends Controller
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'student_number' => 'required|lowercase|string|max:9|unique:'.User::class,
+            'student_number' => 'required|lowercase|string|min:9|max:9|regex:/^[a-z][0-9]*$/|unique:'.User::class,
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class, new InstitutionalEmailRule],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'birthday' => ['required', 'date', new ValidateAgeRule],
             'university_career' => 'required|string|exists:'.UniversityCareer::class.',name',
+        ], [], [
+            'first_name' => 'nombre',
+            'last_name' => 'apellido',
+            'student_number' => 'número de control',
+            'email' => 'correo electrónico',
+            'password' => 'contraseña',
+            'birthday' => 'fecha de nacimiento',
+            'university_career' => 'carrera universitaria',
         ]);
 
         $user = User::create([

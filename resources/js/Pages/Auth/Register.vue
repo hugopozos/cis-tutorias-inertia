@@ -78,7 +78,7 @@ const submit = () => {
                 <InputLabel for="university_career" value="Carrera" />
                 <select
                     id="university_career"
-                    class="mt-1 block w-full border border-gray-300 focus-within:border-blue-800 focus-within:ring-blue-800 rounded-md shadow-sm"
+                    class="mt-1 form-select block w-full border border-gray-300 focus-within:border-blue-800 focus-within:ring-blue-800 rounded-md shadow-sm"
                     v-model="form.university_career"
                 >
                     <option selected disabled value="">Seleccione tu carrera</option>

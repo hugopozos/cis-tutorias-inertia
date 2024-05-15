@@ -22,6 +22,10 @@ class ContractServiceProvider extends ServiceProvider
         /**
          * Bind repositories
          */
+        $this->app->bind(
+            \App\Contracts\Repositories\UniversityCareerRepositoryInterface::class,
+            \App\Repositories\UniversityCareerRepository::class
+        );
 
         /**
          * Bind services
