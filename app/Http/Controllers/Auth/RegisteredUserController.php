@@ -66,6 +66,8 @@ class RegisteredUserController extends Controller
             'student_number' => $request->student_number,
         ]);
 
+        $user->assignRole('estudiante');
+
         event(new Registered($user));
 
         Auth::login($user);
