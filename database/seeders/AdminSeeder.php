@@ -21,7 +21,7 @@ class AdminSeeder extends Seeder
             'phone' => '+522295521144',
             'email' => 'pozos_herrera@outlook.es',
             'email_verified_at' => now(),
-            'password' => Hash::make('Contraseña1234'),
+            'password' => Hash::make('Contrasena1234'),
             'remember_token' => Str::random(10),
         ]);
 

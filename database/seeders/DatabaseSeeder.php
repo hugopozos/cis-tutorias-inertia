@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             RoleSeeder::class,
             AdminSeeder::class,
-            //UserSeeder::class, // TODO: Eliminar en producción
+            UserSeeder::class, // TODO: Eliminar en producción
         ]);
     }
 }

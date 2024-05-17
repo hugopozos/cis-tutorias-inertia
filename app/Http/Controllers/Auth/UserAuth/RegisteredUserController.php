@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth\UserAuth;
 
+use App\Contracts\Repositories\UniversityCareerRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\UniversityCareer;
 use App\Models\User;
@@ -17,17 +18,21 @@ use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Permission\Models\Role;
 
 class RegisteredUserController extends Controller
 {
+    public function __construct(
+        protected readonly UniversityCareerRepositoryInterface $universityCareerRepository,
+    ){}
+
     /**
      * Display the registration view.
      */
     public function create(): Response
     {
-        $careers = UniversityCareer::all();
         return Inertia::render('Auth/UserAuth/Register', [
-            'careers' => $careers,
+            'careers' => $this->universityCareerRepository->all(),
         ]);
     }
 
@@ -66,7 +71,7 @@ class RegisteredUserController extends Controller
             'student_number' => $request->student_number,
         ]);
 
-        $user->assignRole('estudiante');
+        $user->assignRole(Role::findByName('estudiante'));
 
         event(new Registered($user));
 
