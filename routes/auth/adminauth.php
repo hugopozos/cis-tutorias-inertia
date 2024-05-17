@@ -10,7 +10,7 @@ use App\Http\Controllers\Auth\AdminAuth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\AdminAuth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest:web')->group(function () {
+Route::middleware('guest:admin')->group(function () {
 
     Route::get('admin/login', [AuthenticatedSessionController::class, 'create'])
         ->name('admin.login');
@@ -30,7 +30,7 @@ Route::middleware('guest:web')->group(function () {
         ->name('admin.password.store');
 });
 
-Route::middleware('auth:web')->group(function () {
+Route::middleware('auth:admin')->group(function () {
     Route::get('admin/verify-email', EmailVerificationPromptController::class)
         ->name('admin.verification.notice');
 

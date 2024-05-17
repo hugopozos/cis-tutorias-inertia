@@ -37,9 +37,13 @@ const submit = () => {
             {{ status }}
         </div>
 
+        <div class="py-4 text-center text-xl font-bold">
+            Administrador
+        </div>
+
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Correo institucional" />
+                <InputLabel for="email" value="Correo electrónico" />
 
                 <TextInput
                     id="email"
