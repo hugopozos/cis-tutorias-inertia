@@ -14,17 +14,17 @@ class UniversityCareersSeeder extends Seeder
     public function run(): void
     {
         $careers = [
-            ['name' => 'Licenciatura en Administración', 'active' => true],
-            ['name' => 'Ingeniería Bioquímica', 'active' => true],
-            ['name' => 'Ingeniería Eléctrica', 'active' => true],
-            ['name' => 'Ingeniería Electrónica', 'active' => true],
-            ['name' => 'Ingeniería Industrial', 'active' => true],
-            ['name' => 'Ingeniería Mecatrónica', 'active' => true],
-            ['name' => 'Ingeniería Mecánica', 'active' => true],
-            ['name' => 'Ingeniería en Sistemas Computacionales', 'active' => true],
-            ['name' => 'Ingeniería Química', 'active' => true],
-            ['name' => 'Ingeniería en Energías Renovables', 'active' => true],
-            ['name' => 'Ingeniería en Gestión Empresarial', 'active' => true],
+            ['name' => 'Licenciatura en Administración', 'is_active' => true],
+            ['name' => 'Ingeniería Bioquímica', 'is_active' => true],
+            ['name' => 'Ingeniería Eléctrica', 'is_active' => true],
+            ['name' => 'Ingeniería Electrónica', 'is_active' => true],
+            ['name' => 'Ingeniería Industrial', 'is_active' => true],
+            ['name' => 'Ingeniería Mecatrónica', 'is_active' => true],
+            ['name' => 'Ingeniería Mecánica', 'is_active' => true],
+            ['name' => 'Ingeniería en Sistemas Computacionales', 'is_active' => true],
+            ['name' => 'Ingeniería Química', 'is_active' => true],
+            ['name' => 'Ingeniería en Energías Renovables', 'is_active' => true],
+            ['name' => 'Ingeniería en Gestión Empresarial', 'is_active' => true],
         ];
 
         foreach ($careers as $career) {

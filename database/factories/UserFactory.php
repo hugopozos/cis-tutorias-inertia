@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\UniversityCareer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,10 +25,14 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'first_name' => fake()->name(),
+            'last_name' => fake()->lastName(),
+            'email' => sprintf("l%d@veracruz.tecnm.mx", rand(20000000, 29999999)),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => static::$password ??= Hash::make('Contraseña1234'),
+            'birthday' => fake()->date(),
+            'student_number' => sprintf("2%08d", rand(0, 99999999)),
+            'university_career' => UniversityCareer::all()->random(),
             'remember_token' => Str::random(10),
         ];
     }

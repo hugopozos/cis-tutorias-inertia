@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth\UserAuth;
 
 use App\Http\Controllers\Controller;
 use App\Models\UniversityCareer;
@@ -26,7 +26,7 @@ class RegisteredUserController extends Controller
     public function create(): Response
     {
         $careers = UniversityCareer::all();
-        return Inertia::render('Auth/Register', [
+        return Inertia::render('Auth/UserAuth/Register', [
             'careers' => $careers,
         ]);
     }
