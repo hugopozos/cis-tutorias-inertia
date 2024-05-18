@@ -25,7 +25,7 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $studentNumber = sprintf("2%08d", rand(0, 99999999));
+        $studentNumber = sprintf("2%07d", rand(1000000, 9999999));
 
         return [
             'first_name' => $this->faker->name(),

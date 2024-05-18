@@ -69,11 +69,6 @@ class User extends Authenticatable
         return Carbon::parse($value)->format('d-m-Y H:i:s');
     }
 
-    public function getBirthdayAttribute($value): string
-    {
-        return Carbon::parse($value)->format('d-m-Y');
-    }
-
     public function getAgeAttribute(): int
     {
         return Carbon::parse($this->attributes['birthday'])->age;

@@ -6,8 +6,10 @@ use App\Contracts\Repositories\RoleRepositoryInterface;
 use App\Contracts\Repositories\UniversityCareerRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
 use App\Contracts\Services\UserServiceInterface;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -65,9 +67,10 @@ class UserController extends Controller
     /**
      * Actualiza un usuario en la base de datos.
      */
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $this->userService->update($request, $user);
+        return Redirect::route('users.show');
     }
 
     /**
