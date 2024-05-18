@@ -5,6 +5,10 @@ import Pagination from "@/Components/Pagination.vue";
 import {ref, watch} from "vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
+import MazBtn from 'maz-ui/components/MazBtn'
+import MazDialog from 'maz-ui/components/MazDialog'
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import DangerButton from "@/Components/DangerButton.vue";
 
 const props = defineProps({
     users: Object,
@@ -13,6 +17,8 @@ const props = defineProps({
 
 const perPage = ref('5');
 const searchQuery = ref(props.filters.search);
+const isOpenDelete = ref(false)
+const selectedUser = ref('')
 
 /*
  * Watch search query
@@ -45,7 +51,32 @@ function getUsers() {
     });
 }
 
+/**
+ * Abre el modal de eliminación.
+ * @param user
+ */
+function openDeleteModal(user) {
+    selectedUser.value = user;
+    isOpenDelete.value = true;
+}
 
+/**
+ * Eliminar usuario.
+ */
+const deleteUser = () => {
+    console.log('Eliminando usuario: ', selectedUser.value);
+    router.delete(route('users.destroy', selectedUser.value), {}, {
+        preserveState: true,
+        replace: true,
+        onSuccess: (response) => {
+            console.log(response);
+        },
+        onFinish: () => {
+            console.log('Finished');
+        },
+    });
+    isOpenDelete.value = false;
+};
 </script>
 
 <template>
@@ -134,7 +165,18 @@ function getUsers() {
                             <td class="px-3 py-2 whitespace-no-wrap">{{ user.birthday }} <br> {{ user.age }} años</td>
                             <td class="px-3 py-2 whitespace-no-wrap">{{ user.student_number }}</td>
                             <td class="px-3 py-2 whitespace-no-wrap">{{ user.university_career }}</td>
-                            <td class="px-3 py-2 whitespace-no-wrap">{{ user.role }}</td>
+                            <td class="px-3 py-2 whitespace-no-wrap">
+                                <span v-if="user.role === 'estudiante'"
+                                      class="p-1.5 bg-emerald-500 border border-emerald-500 text-white rounded-xl text-xs uppercase"
+                                >
+                                    {{ user.role }}
+                                </span>
+                                <span v-else
+                                      class="p-1.5 bg-blue-600 border border-blue-500 text-white rounded-xl text-xs uppercase"
+                                >
+                                    {{ user.role }}
+                                </span>
+                            </td>
                             <td class="px-3 py-2 whitespace-no-wrap">{{ user.created_at }}</td>
                             <td class="px-3 py-2 whitespace-no-wrap">{{ user.updated_at }}</td>
                             <td class="px-3 py-2 whitespace-no-wrap">
@@ -161,13 +203,24 @@ function getUsers() {
 
                                     <template #content>
                                         <DropdownLink :href="route('users.edit', user)"
-                                                      class="flex items-center text-blue-800"
+                                                      class="flex items-center text-blue-700"
                                         >
                                             <svg class="mr-1 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                             </svg>
                                             Editar
                                         </DropdownLink>
+                                        <button type="button"
+                                                @click="openDeleteModal(user)"
+                                                class="flex items-center text-red-600 w-full px-4 py-2 text-start text-sm leading-5
+                                                hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition
+                                                duration-150 ease-in-out"
+                                        >
+                                            <svg class="mr-1 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                            </svg>
+                                            Eliminar
+                                        </button>
                                     </template>
                                 </Dropdown>
                             </td>
@@ -196,6 +249,19 @@ function getUsers() {
                 </div>
             </div>
         </div>
+
+        <MazDialog v-model="isOpenDelete" title="Eliminar">
+            <p>¿Estás seguro de eliminar a {{ selectedUser.first_name }} {{ selectedUser.last_name }}? Este proceso
+            no tiene como revertirse.
+            </p>
+            <form @submit.prevent="deleteUser">
+                <div class="mt-4 flex gap-4 justify-end">
+                    <DangerButton type="submit">
+                        Eliminar
+                    </DangerButton>
+                </div>
+            </form>
+        </MazDialog>
     </AdminLayout>
 
 </template>

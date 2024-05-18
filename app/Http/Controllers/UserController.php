@@ -76,8 +76,9 @@ class UserController extends Controller
     /**
      * Elimina un usuario de la base de datos.
      */
-    public function destroy(Request $request)
+    public function destroy(User $user)
     {
-        //
+        $this->userService->destroy($user);
+        return Redirect::route('users.show');
     }
 }

@@ -1,4 +1,5 @@
 import './bootstrap';
+import 'maz-ui/styles'
 import '../css/app.css';
 
 import { createApp, h } from 'vue';
@@ -7,6 +8,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 

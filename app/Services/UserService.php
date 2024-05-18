@@ -24,4 +24,9 @@ class UserService implements UserServiceInterface
         $user->save();
     }
 
+    public function destroy($user)
+    {
+        $user->delete();
+    }
+
 }
