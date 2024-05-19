@@ -1,13 +1,11 @@
 <script setup>
-import {Head, router, Link} from "@inertiajs/vue3";
+import {Head, router} from "@inertiajs/vue3";
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import {ref, watch} from "vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
-import MazBtn from 'maz-ui/components/MazBtn'
 import MazDialog from 'maz-ui/components/MazDialog'
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 import DangerButton from "@/Components/DangerButton.vue";
 
 const props = defineProps({
@@ -24,7 +22,7 @@ const selectedUser = ref('')
  * Watch search query
  */
 watch(searchQuery, () => {
-    router.get(route('users.show'),{
+    router.get(route('users.index'),{
             search: searchQuery.value, perPage: perPage.value
         },
         {
@@ -127,7 +125,7 @@ const deleteUser = () => {
                     </div>
                 </div>
 
-                <div class="bg-white relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div class="bg-white shadow-md sm:rounded-lg">
                     <div class="flex items-center justify-between flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 px-2 py-2">
                         <div class="relative">
                             <div class="absolute inset-y-0 flex items-center ps-3 pointer-events-none">
@@ -152,7 +150,7 @@ const deleteUser = () => {
                             <th scope="col" class="px-3 py-3">Número de control</th>
                             <th scope="col" class="px-3 py-3">Carrera</th>
                             <th scope="col" class="px-3 py-3">Rol del usuario</th>
-                            <th scope="col" class="px-3 py-3">Fecha de registro</th>
+                            <th scope="col" class="px-3 py-3">Fecha de creación</th>
                             <th scope="col" class="px-3 py-3">Ultima actualización</th>
                             <th scope="col" class="px-3 py-3">Acciones</th>
                         </tr>
@@ -203,7 +201,7 @@ const deleteUser = () => {
 
                                     <template #content>
                                         <DropdownLink :href="route('users.edit', user)"
-                                                      class="flex items-center text-blue-700"
+                                                      class="flex items-center text-blue-500"
                                         >
                                             <svg class="mr-1 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />

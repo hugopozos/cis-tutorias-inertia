@@ -28,7 +28,7 @@ class UserController extends Controller
     /**
      * Muestra la vista de usuarios.
      */
-    public function show(): Response
+    public function index(): Response
     {
         return Inertia::render('Admin/Users/Index', [
             'users' => $this->userRepository->all(),
@@ -70,7 +70,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $this->userService->update($request, $user);
-        return Redirect::route('users.show');
+        return Redirect::route('users.index');
     }
 
     /**
@@ -79,6 +79,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->userService->destroy($user);
-        return Redirect::route('users.show');
+        return Redirect::route('users.index');
     }
 }

@@ -32,7 +32,7 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('admin.dashboard')" :active="route().current('admin.dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('users.show')" :active="route().current('users.show') || route().current('users.edit')" >
+                                <NavLink :href="route('users.index')" :active="route().current('users.index') || route().current('users.edit')" >
                                     Estudiantes
                                 </NavLink>
                                 <NavLink href="">
@@ -41,11 +41,8 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink href="">
                                     Registro de horarios
                                 </NavLink>
-                                <NavLink href="">
+                                <NavLink :href="route('roles.index')" :active="route().current('roles.index')" >
                                     Roles
-                                </NavLink>
-                                <NavLink href="">
-                                    Permisos
                                 </NavLink>
                             </div>
                         </div>

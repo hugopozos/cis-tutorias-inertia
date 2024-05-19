@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UniversityCareersSeeder::class,
             CourseSeeder::class,
-            RoleSeeder::class,
+            //RoleSeeder::class,
+            PermissionSeeder::class, // Usar este seeder que crea permisos, roles y los asigna al rol.
             AdminSeeder::class,
             UserSeeder::class, // TODO: Eliminar en producción
         ]);
