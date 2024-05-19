@@ -30,4 +30,25 @@ class RoleService implements RoleServiceInterface
         $role->permissions()->sync($permissions);
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function delete($role)
+    {
+        if (in_array($role->name, ['estudiante', 'tutor', 'super admin'])) {
+            abort(403, 'No puedes eliminar este rol');
+        }
+
+        // Lógica para cambiar el rol de los usuarios que tengan el rol a eliminar por el rol por defecto
+        $default_role = Role::where('name', 'estudiante')->first();
+        if ($role->users()->count() > 0) {
+            foreach ($role->users as $user) {
+                $user->roles()->detach($role->id);
+                $user->roles()->attach($default_role->id);
+            }
+        }
+
+        $role->delete();
+    }
+
 }

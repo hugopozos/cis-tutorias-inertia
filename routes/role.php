@@ -8,3 +8,4 @@ Route::get('roles/create', [RoleController::class, 'create'])->name('roles.creat
 Route::post('roles', [RoleController::class, 'store'])->name('roles.store');
 Route::get('roles/edit/{role}', [RoleController::class, 'edit'])->name('roles.edit');
 Route::put('roles/edit/{role}', [RoleController::class, 'update'])->name('roles.update');
+Route::delete('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');

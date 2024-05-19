@@ -14,4 +14,8 @@ interface RoleServiceInterface
      */
     public function update($request, $role);
 
+    /**
+     * Elimina un rol.
+     */
+    public function delete($role);
 }
