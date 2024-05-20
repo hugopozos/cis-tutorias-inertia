@@ -1,17 +1,19 @@
 <script setup>
 import {Link} from "@inertiajs/vue3";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
-import {ref} from "vue";
-import {useSidebarStore} from "@/Stores/sidebar.js";
+import {computed, ref} from "vue";
+import {useStore} from "vuex";
 
-const isSidebarOpen = ref(false)
+// Access Vuex store
+const store = useStore();
 
-const sidebarStore = useSidebarStore()
+// Map the state from Vuex store
+const isSidebarOpen = computed(() => store.state.isSidebarOpen);
 
-function toggleSidebar() {
-    isSidebarOpen.value = !isSidebarOpen.value
-}
-
+// Map the action from Vuex store
+const toggleSidebar = () => {
+    store.dispatch('toggleSidebar');
+};
 </script>
 
 <template>
@@ -27,9 +29,9 @@ function toggleSidebar() {
                 <span class="text-slate-50 text-md font-medium">COMUNIDAD DE INGENIERÍA EN SISTEMAS</span>
             </Link>
 
-            <button class="block lg:hidden" @click="isSidebarOpen = false">
+            <button class="block lg:hidden" @click="toggleSidebar">
                 <svg
-                    class="fill-current"
+                    class="fill-current text-white"
                     width="20"
                     height="18"
                     viewBox="0 0 20 18"

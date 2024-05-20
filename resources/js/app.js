@@ -8,6 +8,9 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Vuex from 'vuex';
+import store from '../js/Store/sidebar.ts'
+
 
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
@@ -20,9 +23,12 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue)
             .use(AOS.init())
+            .use(Vuex)
+            .use(store)
             .mount(el);
     },
     progress: {
         color: '#4B5563',
+        showSpinner: true,
     },
 });

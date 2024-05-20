@@ -5,11 +5,19 @@ import {Link} from "@inertiajs/vue3";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownNotification from "@/Components/Dashboard/Header/DropdownNotification.vue";
+import {useStore} from "vuex";
+import {computed} from "vue";
 
-const props = defineProps({
-    headerTitle: String,
-});
+// Access Vuex store
+const store = useStore();
 
+// Map the state from Vuex store
+const isSidebarOpen = computed(() => store.state.isSidebarOpen);
+
+// Map the action from Vuex store
+const toggleSidebar = () => {
+    store.dispatch('toggleSidebar');
+};
 </script>
 
 <template>
@@ -19,12 +27,15 @@ const props = defineProps({
         <div class="flex flex-grow items-center justify-between py-4 px-4 shadow-2 md:px-6 2xl:px-11">
             <div class="flex items-center gap-2 sm:gap-4 lg:hidden">
                 <!-- Hamburger Toggle -->
-                <button class="z-50 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm lg:hidden">
-                    /
+                <button class="z-50 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm lg:hidden"
+                        @click="toggleSidebar"
+                >
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
                 </button>
                 <Link :href="route('dashboard')" class="flex items-center">
-                    <ApplicationLogo class="w-16 h-20 mr-1.5"/>
-                    <span class="text-slate-50 text-md font-medium">COMUNIDAD DE INGENIERÍA EN SISTEMAS</span>
+                    <ApplicationLogo class="w-[80px] h-[58px]"/>
                 </Link>
             </div>
             <div class="hidden sm:block">
@@ -33,7 +44,7 @@ const props = defineProps({
 
             <div class="flex items-center gap-3">
                 <ul class="flex items-center gap-2">
-                    <li>
+                    <li class="hidden sm:block">
                         <DropdownNotification />
                     </li>
                 </ul>
@@ -45,12 +56,14 @@ const props = defineProps({
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm
+                                                leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 f
+                                                ocus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {{ $page.props.auth.user.first_name }} {{ $page.props.auth.user.last_name }}
 
                                                 <svg
-                                                    class="ms-2 -me-0.5 h-4 w-4"
+                                                    class="ms-2 -me-0.5 h-5 w-5"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20"
                                                     fill="currentColor"
