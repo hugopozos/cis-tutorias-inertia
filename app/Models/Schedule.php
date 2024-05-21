@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ScheduleStatusEnum;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -39,9 +40,34 @@ class Schedule extends Model
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
-        'start_time' => 'time',
+        'start_at' => 'datetime: H:i',
         'status' => ScheduleStatusEnum::class,
     ];
+
+    public function getDaysOfWeekAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    public function getStartDateAttribute($value): string
+    {
+        return Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getEndDateAttribute($value): string
+    {
+        return Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function getCreatedAtAttribute($value): string
+    {
+        return Carbon::parse($value)->format('d-m-Y H:i:s');
+    }
+
+    public function getUpdatedAtAttribute($value): string
+    {
+        return Carbon::parse($value)->format('d-m-Y H:i:s');
+    }
 
     public function course(): BelongsTo
     {

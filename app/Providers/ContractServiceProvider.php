@@ -38,6 +38,14 @@ class ContractServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\PermissionRepositoryInterface::class,
             \App\Repositories\PermissionRepository::class
         );
+        $this->app->bind(
+            \App\Contracts\Repositories\CourseRepositoryInterface::class,
+            \App\Repositories\CourseRepository::class
+        );
+        $this->app->bind(
+            \App\Contracts\Repositories\ScheduleRepositoryInterface::class,
+            \App\Repositories\ScheduleRepository::class
+        );
 
         /**
          * Bind services
@@ -49,6 +57,10 @@ class ContractServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Contracts\Services\RoleServiceInterface::class,
             \App\Services\RoleService::class
+        );
+        $this->app->bind(
+            \App\Contracts\Services\ScheduleServiceInterface::class,
+            \App\Services\ScheduleService::class
         );
     }
 

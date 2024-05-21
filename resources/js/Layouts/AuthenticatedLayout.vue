@@ -8,13 +8,6 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import SidebarArea from "@/Components/Dashboard/Sidebar/SidebarArea.vue";
 import HeaderArea from "@/Components/Dashboard/Header/HeaderArea.vue";
-
-const showingNavigationDropdown = ref(false);
-const isSidebarOpen = ref(false);
-
-function toggleSidebar() {
-    isSidebarOpen.value = !isSidebarOpen.value;
-}
 </script>
 
 <template>
