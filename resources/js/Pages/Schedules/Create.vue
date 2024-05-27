@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Head, useForm} from '@inertiajs/vue3';
+import {Head, router, useForm} from '@inertiajs/vue3';
 import {ref, watch} from "vue";
 import MazDialog from 'maz-ui/components/MazDialog';
 import InputLabel from "@/Components/InputLabel.vue";
@@ -10,17 +10,21 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import { format, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import Dropdown from "@/Components/Dropdown.vue";
+import DangerButton from "@/Components/DangerButton.vue";
 
 const props = defineProps({
     userSchedules: Object,
     courses: Object,
     classroomTypes: Object,
+    scheduleStatus: Object,
 });
 
 const startDate = new Date();
 const endDate = new Date();
 endDate.setDate(startDate.getDate() + 1);
 const isOpenCreate = ref(false)
+const isOpenCancel = ref(false)
+const selectedSchedule = ref('')
 
 const form = useForm({
     name: '',
@@ -58,14 +62,29 @@ function openCreateModal() {
     isOpenCreate.value = true;
 }
 
+function openCancelModal(schedule) {
+    isOpenCancel.value = true;
+    selectedSchedule.value = schedule;
+}
+
 const submit = () => {
     form.post(route('schedules.store'), {
         preserveScroll: true,
+    });
+    isOpenCreate.value = false;
+};
+
+const cancelSchedule = () => {
+    router.put(route('schedules.cancel', selectedSchedule.value), {
+        preserveScroll: true,
         onSuccess: () => {
-            isOpenCreate.value = false;
-            form.reset();
+            isOpenCancel.value = false;
         },
     });
+};
+
+const viewList = (schedule) => {
+    router.get(route('schedules.list', schedule));
 };
 
 /**
@@ -86,6 +105,21 @@ function pillClass(status) {
         default:
             return 'bg-gray-600'; // Clase por defecto
     }
+}
+
+function copyToClipboard(text) {
+    // Crea un elemento de texto temporal
+    const tempInput = document.createElement('input');
+    tempInput.style.position = 'absolute';
+    tempInput.style.left = '-9999px';
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+    // Selecciona y copia el texto al portapapeles
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    // Muestra una alerta o notificación de que el texto se ha copiado
+    alert('Texto copiado: ' + text);
 }
 </script>
 
@@ -135,7 +169,7 @@ function pillClass(status) {
                                 </span>
                                 </template>
                                 <template #content>
-                                    <button class="flex p-2 hover:bg-gray-100 w-full duration-200">
+                                    <button @click="openCancelModal(schedule)" class="flex p-2 hover:bg-gray-100 w-full duration-200">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                              class="mr-1 w-5 h-5 text-red-500"
                                         >
@@ -143,7 +177,7 @@ function pillClass(status) {
                                         </svg>
                                         <span class="text-gray-900">Cancelar</span>
                                     </button>
-                                    <button class="flex p-2 hover:bg-gray-100 w-full duration-200">
+                                    <button @click="viewList(schedule)" class="flex p-2 hover:bg-gray-100 w-full duration-200">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                              class="mr-1 w-5 h-5 text-blue-500"
                                         >
@@ -168,7 +202,18 @@ function pillClass(status) {
                             </div>
                             <div class="flex flex-col">
                                 <span class="text-xs text-gray-400 uppercase">Ubicación</span>
-                                <p class="text-md text-slate-600">{{ schedule.classroom_location }}</p>
+                                <p :id="'tooltip-trigger-' + schedule.id"
+                                   :data-tooltip-target="'tooltip-' + schedule.id"
+                                   class="text-md text-slate-600 cursor-pointer"
+                                   @click="copyToClipboard(schedule.classroom_location)">
+                                    {{ schedule.classroom_location.slice(0, 20) + '...' }}
+                                </p>
+                            </div>
+                            <div :id="'tooltip-' + schedule.id"
+                                 role="tooltip"
+                                 class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                {{ schedule.classroom_location }}
+                                <div class="tooltip-arrow" data-popper-arrow></div>
                             </div>
                         </div>
                         <div class="py-1.5 flex justify-between items-center border-b border-gray-200">
@@ -214,7 +259,7 @@ function pillClass(status) {
             <form @submit.prevent="submit">
                 <div>
                     <div>
-                        <InputLabel for="name" value="Nombre" />
+                        <InputLabel for="name" value="Titulo" />
                         <TextInput
                             id="name"
                             type="text"
@@ -276,7 +321,6 @@ function pillClass(status) {
                                 v-model="form.classroom_location"
                                 autocomplete="classroom_location"
                                 :placeholder="form.classroom_type === 'virtual' ? 'Ingrese URL' : 'Ingrese salón de clase'"
-
                             />
                             <InputError class="mt-2" :message="form.errors.classroom_location" />
                         </div>
@@ -373,6 +417,17 @@ function pillClass(status) {
                     <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing" type="submit">
                         Crear
                     </PrimaryButton>
+                </div>
+            </form>
+        </MazDialog>
+
+        <MazDialog v-model="isOpenCancel" title="Crear nueva tutoría" scrollable>
+            <form @submit.prevent="cancelSchedule">
+                <p>Cancelar tutoría {{ selectedSchedule.name }}</p>
+                <div class="mt-4 flex gap-4 justify-end">
+                    <DangerButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing" type="submit">
+                        Cancelar
+                    </DangerButton>
                 </div>
             </form>
         </MazDialog>

@@ -8,6 +8,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 import SidebarArea from "@/Components/Dashboard/Sidebar/SidebarArea.vue";
 import HeaderArea from "@/Components/Dashboard/Header/HeaderArea.vue";
+import Notification from "@/Components/Notification.vue";
 </script>
 
 <template>
@@ -15,12 +16,19 @@ import HeaderArea from "@/Components/Dashboard/Header/HeaderArea.vue";
         <!-- Barra lateral -->
         <SidebarArea />
 
+
         <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+
+            <div class="relative">
+                <Notification />
+            </div>
+
             <HeaderArea>
                 <template #header>
                     <slot name="header"/>
                 </template>
             </HeaderArea>
+
             <!-- Contenido principal -->
             <main>
                 <div class="mx-auto max-w-screen-2xl p-4 md:p-6 lg:p-10">

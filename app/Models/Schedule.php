@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Schedule extends Model
 {
@@ -51,12 +52,12 @@ class Schedule extends Model
 
     public function getStartDateAttribute($value): string
     {
-        return Carbon::parse($value)->format('d-m-Y');
+        return Carbon::parse($value)->isoFormat('D [de] MMMM [del] YYYY');
     }
 
     public function getEndDateAttribute($value): string
     {
-        return Carbon::parse($value)->format('d-m-Y');
+        return Carbon::parse($value)->isoFormat('D [de] MMMM [del] YYYY');
     }
 
     public function getCreatedAtAttribute($value): string
@@ -67,6 +68,11 @@ class Schedule extends Model
     public function getUpdatedAtAttribute($value): string
     {
         return Carbon::parse($value)->format('d-m-Y H:i:s');
+    }
+
+    public function selections(): HasMany
+    {
+        return $this->hasMany(ScheduleSelection::class);
     }
 
     public function course(): BelongsTo

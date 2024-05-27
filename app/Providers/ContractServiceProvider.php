@@ -46,6 +46,10 @@ class ContractServiceProvider extends ServiceProvider
             \App\Contracts\Repositories\ScheduleRepositoryInterface::class,
             \App\Repositories\ScheduleRepository::class
         );
+        $this->app->bind(
+            \App\Contracts\Repositories\ScheduleSelectionRepositoryInterface::class,
+            \App\Repositories\ScheduleSelectionRepository::class
+        );
 
         /**
          * Bind services
@@ -61,6 +65,10 @@ class ContractServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Contracts\Services\ScheduleServiceInterface::class,
             \App\Services\ScheduleService::class
+        );
+        $this->app->bind(
+            \App\Contracts\Services\ScheduleSelectionServiceInterface::class,
+            \App\Services\ScheduleSelectionService::class
         );
     }
 

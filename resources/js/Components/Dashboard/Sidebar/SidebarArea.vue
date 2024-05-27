@@ -81,7 +81,9 @@ const toggleSidebar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link class="group relative flex items-center gap-2.5 rounded-md py-2 px-4 font-medium
+                            <Link :href="route('schedule_selection.index')"
+                                  :class="{ 'bg-slate-700': route().current('schedule_selection.index')}"
+                                  class="group relative flex items-center gap-2.5 rounded-md py-2 px-4 font-medium
                             duration-300 ease-in-out hover:bg-slate-700"
                             >
                                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">

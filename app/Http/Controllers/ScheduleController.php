@@ -6,7 +6,9 @@ use App\Contracts\Repositories\CourseRepositoryInterface;
 use App\Contracts\Repositories\ScheduleRepositoryInterface;
 use App\Contracts\Services\ScheduleServiceInterface;
 use App\Enums\ClassroomTypeEnum;
+use App\Enums\ScheduleStatusEnum;
 use App\Http\Requests\CreateScheduleRequest;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -21,9 +23,11 @@ class ScheduleController extends Controller
     /**
      * Muestra una vista con la lista de horarios.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Schedules/Index');
+        return Inertia::render('Schedules/Index', [
+            'schedules' => $this->scheduleRepository->getAvailableSchedules($request),
+        ]);
     }
 
     /**
@@ -35,6 +39,7 @@ class ScheduleController extends Controller
             'courses' => $this->courseRepository->all(),
             'userSchedules' => $this->scheduleRepository->getSchedulesByUserId(auth()->user()->id),
             'classroomTypes' => ClassroomTypeEnum::getValues(),
+            'scheduleStatus' => ScheduleStatusEnum::getValues(),
         ]);
     }
 
@@ -77,5 +82,19 @@ class ScheduleController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function cancel(Schedule $schedule)
+    {
+        $schedule->status = ScheduleStatusEnum::CANCELLED;
+        $schedule->save();
+        return Redirect::route('schedules.create');
+    }
+
+    public function list(Schedule $schedule)
+    {
+        return Inertia::render('ScheduleSelections/List', [
+            'selections' => $this->scheduleRepository->getScheduleSelections($schedule),
+        ]);
     }
 }

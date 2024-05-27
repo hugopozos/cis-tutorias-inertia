@@ -8,6 +8,7 @@ import tailwindScrollbar from 'tailwind-scrollbar';
 export default {
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        "./node_modules/flowbite/**/*.js",
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
@@ -26,5 +27,6 @@ export default {
         typography,
         aspectRatio,
         tailwindScrollbar,
+        require('flowbite/plugin')
     ],
 };
