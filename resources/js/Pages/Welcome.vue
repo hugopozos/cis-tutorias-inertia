@@ -66,7 +66,7 @@ const images: MazGalleryImage[] = [
                          data-aos="fade-up"
                          data-aos-duration="2000"
                     >
-                        <h2 class="text-xs font-bold font-monserrat text-slate-400 tracking-widest uppercase lg:text-sm">
+                        <h2 id="quienes-somos" class="text-xs font-bold font-monserrat text-slate-400 tracking-widest uppercase lg:text-sm">
                             ¿Quienes somos?
                         </h2>
                         <span class="text-gray-950 text-3xl font-poppins font-bold lg:text-5xl">
@@ -99,7 +99,7 @@ const images: MazGalleryImage[] = [
                          data-aos="fade-up"
                          data-aos-duration="2000"
                     >
-                        <h2 class="text-xs font-bold font-monserrat text-slate-400 tracking-widest uppercase lg:text-sm">
+                        <h2 id="que-hacemos" class="text-xs font-bold font-monserrat text-slate-400 tracking-widest uppercase lg:text-sm">
                             ¿Que hacemos?
                         </h2>
                         <span class="text-gray-950 text-3xl font-poppins font-bold lg:text-5xl">
@@ -133,7 +133,7 @@ const images: MazGalleryImage[] = [
                          data-aos="fade-up"
                          data-aos-duration="2000"
                     >
-                        <h2 class="text-xs font-bold font-monserrat text-slate-400 tracking-widest uppercase lg:text-sm">
+                        <h2 id="instalaciones" class="text-xs font-bold font-monserrat text-slate-400 tracking-widest uppercase lg:text-sm">
                             Instalaciones
                         </h2>
                         <span class="text-slate-100 text-3xl font-poppins font-bold lg:text-5xl">
@@ -163,7 +163,7 @@ const images: MazGalleryImage[] = [
         <section class="w-full py-12 px-4">
             <div class="max-w-screen-xl mx-auto" data-aos="fade-up" data-aos-duration="2000">
                 <div>
-                    <h2 class="text-xs font-bold text-gray-400 tracking-widest
+                    <h2 id="contenido" class="text-xs font-bold text-gray-400 tracking-widest
                      uppercase lg:text-sm">
                         Contenido
                     </h2>

@@ -97,7 +97,7 @@ function pillClass(status) {
         case 'disponible':
             return 'bg-green-500';
         case 'lleno':
-            return 'bg-yellow-600';
+            return 'bg-yellow-400';
         case 'cancelado':
             return 'bg-red-600';
         case 'finalizado':

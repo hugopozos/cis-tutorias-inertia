@@ -18,16 +18,16 @@ const isOpenedRight = ref(false)
             >
                 <ul class="flex items-center justify-end space-x-4">
                     <li>
-                        Cónocenos
+                        <a href="#quienes-somos">¿Quienes somos?</a>
                     </li>
                     <li>
-                        Eventos
+                        <a href="#que-hacemos">¿Qué hacemos?</a>
                     </li>
                     <li>
-                        Investigaciones
+                        <a href="#instalaciones">Instalaciones</a>
                     </li>
                     <li>
-                        Perfil docente
+                        <a href="#contenido">Contenido</a>
                     </li>
                     <li>
                         <Link :href="route('login')"
@@ -64,29 +64,6 @@ const isOpenedRight = ref(false)
                 <div class="col-span-1 lg:col-span-2">
                     <ApplicationLogo class="w-16 select-none pointer-events-none" />
                 </div>
-                <!-- Enlaces -->
-                <div>
-                    <h2 class="mb-5 text-sm font-bold font-monserrat lg:text-2xl">Lorem ipsum</h2>
-                    <ul class="text-gray-50 dark:text-gray-400 font-lato">
-                        <li class="mb-4">
-                        </li>
-
-                    </ul>
-                </div>
-                <div>
-                    <h2 class="mb-5 text-sm font-bold font-monserrat lg:text-2xl">Lorem ipsum</h2>
-                    <ul class="text-gray-50 dark:text-gray-400 font-lato">
-                        <li class="mb-4">
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 class="mb-5 text-sm font-bold font-monserrat lg:text-2xl">Lorem ipsum</h2>
-                    <ul class="text-gray-50 dark:text-gray-400 font-lato">
-                        <li class="mb-4">
-                        </li>
-                    </ul>
-                </div>
             </div>
             <hr class="h-px my-8 bg-gray-400 border-0">
             <div class="text-gray-50 font-lato">
@@ -106,10 +83,7 @@ const isOpenedRight = ref(false)
                 </ul>
             </div>
             <div class="mt-8 text-gray-300 text-sm lg:text-md">
-                <p>© 2024 lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </p>
+                <p>© 2024 CIS | Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>

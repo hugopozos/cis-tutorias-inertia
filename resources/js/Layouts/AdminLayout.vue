@@ -35,12 +35,6 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('users.index')" :active="route().current('users.index') || route().current('users.edit')" >
                                     Estudiantes
                                 </NavLink>
-                                <NavLink href="">
-                                    Horarios
-                                </NavLink>
-                                <NavLink href="">
-                                    Registro de horarios
-                                </NavLink>
                                 <NavLink :href="route('roles.index')" :active="route().current('roles.index')" >
                                     Roles
                                 </NavLink>
@@ -75,9 +69,9 @@ const showingNavigationDropdown = ref(false);
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('admin.profile.edit')"> Profile </DropdownLink>
+                                        <DropdownLink :href="route('admin.profile.edit')"> Perfil </DropdownLink>
                                         <DropdownLink :href="route('admin.logout')" method="post" as="button">
-                                            Log Out
+                                            Cerrar sesión
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
