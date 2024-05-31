@@ -5,9 +5,3 @@
 # TUTORIAS Y TUTORADOS PARA ESTUDIANTES
 
 Plataforma para estudiantes donde pueden ofrecen tutorías de materias para otros estudiantes del Instituto Tecnologico de Veracruz (ITVER).
-
-## Autores
-
-- [@Hugo Pozos ](https://www.github.com/hugopozos)
-- [@Félix Pérez ](https://www.github.com/fsamd05)
-
